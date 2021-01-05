@@ -1,4 +1,5 @@
 import { CommandoClient } from "discord.js-commando";
+require("dotenv").config();
 import { join } from "path";
 const client = new CommandoClient({
   owner: "699751428222353489",
@@ -15,4 +16,4 @@ client.registry
 client.on("ready", () => {
   console.log(`Logged in as ${client.user?.tag}`);
 });
-client.login("Nzk0NDIzNTYxNjUyNTM1MzM4.X-6mmA.7IPR70GHZZugoEUNSGeslPlVBew");
+client.login(process.env.BOT_TOKEN);

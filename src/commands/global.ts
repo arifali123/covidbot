@@ -1,8 +1,9 @@
 import { Command, CommandoClient, CommandoMessage } from "discord.js-commando";
 import axios from "axios";
-import { GlobalData } from "src/constants/types";
-import { MessageEmbed } from "discord.js";
+import { GlobalData } from "../constants/types";
 import { FD, GenMD } from "field-descriptions/lib";
+import { FDefaults } from "../constants/variables";
+import { StandardEmbed } from "../constants/classes";
 export default class GlobalCommand extends Command {
   constructor(client: CommandoClient) {
     super(client, {
@@ -27,7 +28,7 @@ export default class GlobalCommand extends Command {
       updated,
     } = data;
     return message.embed(
-      new MessageEmbed({
+      new StandardEmbed({
         title: "Global Data For Today",
         color: "#ED1B24",
         description: `${GenMD("Totals:", {
@@ -40,7 +41,7 @@ export default class GlobalCommand extends Command {
             { name: "Total Recoveries", value: recovered.toLocaleString() },
             { name: "Total Tests Administered", value: tests.toLocaleString() },
           ],
-          { separator: ":", nameEdits: { bold: true } }
+          FDefaults
         )}\n${GenMD("Daily Changes:", { bold: true, underline: true })}\n${FD(
           [
             { name: "New Cases Today", value: todayCases.toLocaleString() },
@@ -50,7 +51,7 @@ export default class GlobalCommand extends Command {
               value: todayRecovered.toLocaleString(),
             },
           ],
-          { separator: ":", nameEdits: { bold: true } }
+          FDefaults
         )}`,
         url:
           "https://disease.sh/v3/covid-19/all?yesterday=false&twoDaysAgo=false&allowNull=false",
