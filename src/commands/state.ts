@@ -1,11 +1,10 @@
-import axios from "axios";
 import { Command, CommandoClient, CommandoMessage } from "discord.js-commando";
 import { stringify } from "query-string";
 import { escape } from "querystring";
 import { states, FDefaults } from "../constants/variables";
-import { StateData } from "../constants/types";
 import { FD, GenMD } from "field-descriptions/lib";
 import { StandardEmbed } from "../constants/classes";
+import { GetStateData } from "../constants/functions";
 export default class StateCommand extends Command {
   constructor(client: CommandoClient) {
     super(client, {
@@ -33,12 +32,7 @@ export default class StateCommand extends Command {
     });
   }
   async run(message: CommandoMessage, { state }: { state: string }) {
-    const { data }: { data: StateData } = await axios.get(
-      `https://disease.sh/v3/covid-19/states/${state}?${stringify({
-        yesterday: false,
-        allowNull: false,
-      })}`
-    );
+    const data = await GetStateData(state);
     const {
       state: state2,
       cases,

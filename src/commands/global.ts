@@ -1,9 +1,8 @@
 import { Command, CommandoClient, CommandoMessage } from "discord.js-commando";
-import axios from "axios";
-import { GlobalData } from "../constants/types";
 import { FD, GenMD } from "field-descriptions/lib";
 import { FDefaults } from "../constants/variables";
 import { StandardEmbed } from "../constants/classes";
+import { GetGlobalData } from "../constants/functions";
 export default class GlobalCommand extends Command {
   constructor(client: CommandoClient) {
     super(client, {
@@ -14,9 +13,7 @@ export default class GlobalCommand extends Command {
     });
   }
   async run(message: CommandoMessage) {
-    const { data }: { data: GlobalData } = await axios.get(
-      "https://disease.sh/v3/covid-19/all?yesterday=false&twoDaysAgo=false&allowNull=false"
-    );
+    const data = await GetGlobalData();
     const {
       cases,
       deaths,

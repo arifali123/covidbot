@@ -2,8 +2,8 @@ import { CommandoClient } from "discord.js-commando";
 require("dotenv").config();
 import { join } from "path";
 const client = new CommandoClient({
-  owner: "699751428222353489",
-  commandPrefix: "!",
+  owner: process.env.BOT_OWNER,
+  commandPrefix: process.env.BOT_PREFIX,
 });
 client.registry
   .registerDefaults()
